@@ -59,7 +59,16 @@ public class WorldMap : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,I
     ///</summary>
     public bool canInteracte = true;
 
-    public int populattion;
+    public int DataRANKING;
+    public int DataPOP23;
+    public int DataPOP22;
+    public int DataPOP21;
+    public int DataPOP20;
+    public int DataPOP15;
+    public int DataPOP10;
+    public int DataPOP00;
+    public float DataGROWTH;
+
 
     RectTransform rectTransform;
     int width,height,textureWidth,textureHeigth;
@@ -159,8 +168,40 @@ public class WorldMap : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,I
         Debug.Log("Number: " + country);
         Tempdata = FindCountry(country);
 
-        populattion = Tempdata.Rank;
-        Debug.Log(populattion);
+
+
+
+
+        /*if(Tempdata.GrowthRate == null)
+        {
+            Debug.Log("HURRAY");
+        }
+        else
+        {
+            DataRANKING = Tempdata.Rank;
+            DataPOP00 = Tempdata.Population00;
+            DataPOP10 = Tempdata.Population10;
+            DataPOP15 = Tempdata.Population15;
+            DataPOP20 = Tempdata.Population20;
+            DataPOP21 = Tempdata.Population21;
+            DataPOP22 = Tempdata.Population22;
+            DataPOP23 = Tempdata.Population23;
+            DataGROWTH = Tempdata.GrowthRate;
+        }*/
+
+        DataRANKING = Tempdata.Rank;
+        DataPOP00 = Tempdata.Population00;
+        DataPOP10 = Tempdata.Population10;
+        DataPOP15 = Tempdata.Population15;
+        DataPOP20 = Tempdata.Population20; 
+        DataPOP21 = Tempdata.Population21;
+        DataPOP22 = Tempdata.Population22;
+        DataPOP23 = Tempdata.Population23;
+        DataGROWTH = Tempdata.GrowthRate;
+
+    
+        Debug.Log(DataRANKING);
+        Debug.Log(DataPOP23);
     }
     ///<summary>
     /// Unselect Country
