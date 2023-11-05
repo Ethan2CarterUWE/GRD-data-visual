@@ -10,18 +10,27 @@ public class WorldMap : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,I
     ///<summary>
     ///selected country of value type <Country>
     ///</summary>
-    [HideInInspector]public Country selectedCountry;
+    ///
+     public Country selectedCountry;
+
+    //[HideInInspector]public Country selectedCountry;
 
     ///<summary>
     ///current highlighted country of value type <Country>
     ///</summary>
-    [HideInInspector]public Country highlightedCountry;
+    ///
+    public Country highlightedCountry;
+
+    //  [HideInInspector]public Country highlightedCountry;
 
 
     ///<summary>
     ///current selected countries list of value type List<Countries>
     ///</summary>
-    [HideInInspector]public List<Country> selectedCountries = new List<Country>();
+    ///
+     public List<Country> selectedCountries = new List<Country>();
+
+    //[HideInInspector]public List<Country> selectedCountries = new List<Country>();
 
     
     ///<summary>
@@ -141,6 +150,7 @@ public class WorldMap : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,I
         Transform countryT = transform.GetChild((int)country);
         countryT.gameObject.tag = "Selected";
         countryT.GetComponent<SpriteRenderer>().color = mapStyleController.DefaultColorForSelectedCountries;
+        Debug.Log("Number: " + country);
     }
     ///<summary>
     /// Unselect Country
