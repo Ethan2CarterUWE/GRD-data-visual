@@ -5,6 +5,10 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using UnityEngine.EventSystems;
+using System.Data;
+using System.Linq;
+using static CSV_Reader;
+
 public class WorldMap : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,IPointerDownHandler,IPointerUpHandler
 {
     ///<summary>
@@ -28,7 +32,8 @@ public class WorldMap : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,I
     ///current selected countries list of value type List<Countries>
     ///</summary>
     ///
-     public List<Country> selectedCountries = new List<Country>();
+    public List<Country> selectedCountries = new List<Country>();
+    public CSV_Reader dataSet_Csv;
 
     //[HideInInspector]public List<Country> selectedCountries = new List<Country>();
 
@@ -54,7 +59,7 @@ public class WorldMap : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,I
     ///</summary>
     public bool canInteracte = true;
 
-
+    public int populattion;
 
     RectTransform rectTransform;
     int width,height,textureWidth,textureHeigth;
@@ -135,7 +140,8 @@ public class WorldMap : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,I
     ///</summary>
     public void SelectCountry(Country country)
     {
-        if(mapStyleController.interactionMode == InteractionModes.Single)
+        Country_Data Tempdata = new Country_Data();
+        if (mapStyleController.interactionMode == InteractionModes.Single)
         {
             foreach (Country c in selectedCountries)
             {
@@ -151,6 +157,10 @@ public class WorldMap : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,I
         countryT.gameObject.tag = "Selected";
         countryT.GetComponent<SpriteRenderer>().color = mapStyleController.DefaultColorForSelectedCountries;
         Debug.Log("Number: " + country);
+        Tempdata = FindCountry(country);
+
+        populattion = Tempdata.Rank;
+        Debug.Log(populattion);
     }
     ///<summary>
     /// Unselect Country
@@ -193,6 +203,7 @@ public class WorldMap : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,I
         height = (int)rectTransform.rect.height;
         textureWidth = GSmap.width;
         textureHeigth = GSmap.height;
+        
     }
     void Update()
     {
@@ -219,6 +230,7 @@ public class WorldMap : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,I
     void SelectCountry()
     {
         ColorsGS grayScale = GetGSid();
+      
         if(grayScale != ColorsGS.GS1)
         {
             int index =((int)grayScale);
@@ -233,6 +245,8 @@ public class WorldMap : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,I
                 UnselectCountry((Country)index);
                 if(onUnselectCountry != null)
                 onUnselectCountry(this,EventArgs.Empty);
+                
+             
             }
         }
     }
@@ -253,9 +267,25 @@ public class WorldMap : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,I
                 if(onHighlightCountry != null)
                 onHighlightCountry(this,EventArgs.Empty);
             }
+        
     }
-    
+    Country_Data FindCountry(Country name)
+    {
+
+        for(int i = 0; i < dataSet_Csv.myCountryList.country.Length; i++)
+        {
+            if (dataSet_Csv.myCountryList.country[i].CountryName == name.ToString())
+            {
+                Debug.Log("In");
+                return dataSet_Csv.myCountryList.country[i];
+            }
+        }
+        return null;
+    }
 }
+
+  
+
 public enum Country
 {
      Empty=0, United_Arab_Emirates=1, Afghanistan=2, Albania=3, Armenia=4, Angola=5, Argentina=6, Austria=7, Australia=8, Azerbaijan=9, Bosnia_and_Herzegovina=10, Bangladesh=11, Belgium=12, Burkina_Faso=13, Bulgaria=14, Burundi=15, Benin=16, Brunei_Darussalam=17, Bolivia=18, Brazil=19, Bahamas=20, Bhutan=21, Botswana=22, Belarus=23, Belize=24, Canada=25, Democratic_Republic_of_the_Congo=26, Central_African_Republic=27, Congo=28, Switzerland=29, Côte_dIvoire=30, Chile=31, Cameroon=32, China=33, Colombia=34, Costa_Rica=35, Cuba=36, Cape_Verde=37, Cyprus=38, Czech_Republic=39, Germany=40, Djibouti=41, Denmark=42, Dominica=43, Dominican_Republic=44, Algeria=45, Ecuador=46, Estonia=47, Egypt=48, Eritrea=49, Spain=50, Western_Sahara=51, Ethiopia=52, Finland=53, Falkland_Islands_اMalvinasا=54, France=55, Gabon=56, United_Kingdom=57, Georgia=58, Ghana=59, Greenland=60, Gambia=61, Guinea=62, Equatorial_Guinea=63, Greece=64, Guatemala=65, Guinea_Bissau=66, Guyana=67, Honduras=68, Croatia=69, Haiti=70, Hungary=71, Indonesia=72, Ireland=73, India=74, Iraq=75, Iran=76, Iceland=77, Italy=78, Jamaica=79, Jordan=80, Japan=81, Kenya=82, Kyrgyzstan=83, Cambodia=84, Comoros=85, North_Korea=86, South_Korea=87, Kuwait=88, Kazakhstan=89, Lao_Peoples_Democratic_Republic=90, Saint_Lucia=91, Sri_Lanka=92, Liberia=93, Lesotho=94, Lithuania=95, Luxembourg=96, Latvia=97, Libya=98, Morocco=99, Moldova=100, Montenegro=101, Madagascar=102, Macedonia=103, Mali=104, Myanmar=105, Mongolia=106, Mauritania=107, Malta=108, Mauritius=109, Maldives=110, Malawi=111, Mexico=112, Malaysia=113, Mozambique=114, Namibia=115, New_Caledonia=116, Niger=117, Nigeria=118, Nicaragua=119, Netherlands=120, Norway=121, Nepal=122, New_Zealand=123, Oman=124, Panama=125, Peru=126, Papua_New_Guinea=127, Philippines=128, Pakistan=129, Poland=130, Puerto_Rico=131, Palestine=132, Portugal=133, Paraguay=134, Qatar=135, Romania=136, Serbia=137, Russia=138, Rwanda=139, Saudi_Arabia=140, Solomon_Islands=141, Seychelles=142, Sudan=143, Sweden=144, Singapore=145, Slovenia=146, Slovakia=147, Sierra_Leone=148, Senegal=149, Somalia=150, Suriname=151, South_Sudan=152, Sao_Tome_and_Principe=153, El_Salvador=154, Syrian_Arab_Republic=155, Swaziland=156, Chad=157, Togo=158, Thailand=159, Tajikistan=160, Turkmenistan=161, Tunisia=162, Turkey=163, Trinidad_and_Tobago=164, Taiwan=165, Tanzania=166, Ukraine=167, Uganda=168, United_States=169, Uruguay=170, Uzbekistan=171, Saint_Vincent_and_the_Grenadines=172, Venezuela=173, Viet_Nam=174, Vanuatu=175, Yemen=176, South_Africa=177, Zambia=178, Zimbabwe=179, Andorra=180, Antigua_and_Barbuda=181, Bahrain=182, Faroe_Islands=183, Guadeloupe=184, South_Georgia_and_the_South_Sandwich_Islands=185, Liechtenstein=186, Monaco=187, Réunion=188, French_Guiana=189, French_Southern_Territories=190

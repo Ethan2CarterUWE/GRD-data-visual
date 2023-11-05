@@ -8,7 +8,7 @@ public class CSV_Reader : MonoBehaviour
    [SerializeField] private TextAsset _textDataSet;
 
     [System.Serializable]
-    public class Country
+    public class Country_Data
     {
         public int Rank;
         public string CountryName;
@@ -25,7 +25,7 @@ public class CSV_Reader : MonoBehaviour
     [System.Serializable]
     public class CountryList
     {
-        public Country[] country;
+        public Country_Data[] country;
     }
 
     public CountryList myCountryList = new CountryList();
@@ -40,11 +40,11 @@ public class CSV_Reader : MonoBehaviour
 
         int tableSize = data.Length / 10 - 1;
         
-        myCountryList.country = new Country[tableSize];
+        myCountryList.country = new Country_Data[tableSize];
 
         for (int i = 0; i < tableSize; i++)
         {
-            myCountryList.country[i] = new Country();
+            myCountryList.country[i] = new Country_Data();
             myCountryList.country[i].Rank = int.Parse( data[10 * (i + 1)]);
             myCountryList.country[i].CountryName = data[10 * (i + 1) + 1];
             myCountryList.country[i].Population23 = int.Parse(data[10 * (i + 1)+2]);
