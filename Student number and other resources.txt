@@ -1,0 +1,9 @@
+16021962 - Ethan 
+23055860 - Jame 
+23064166 - Sanjay
+
+Week 2 video - https://www.youtube.com/watch?v=-PX3CJ_fSVQ
+Week 3 / Prototype video - https://www.youtube.com/watch?v=dMhy5-c515M
+
+Dataset - https://www.kaggle.com/datasets/akshatsharma0610/world-population-2000-2023
+World map - https://naoufelbougueroua.itch.io/interactive-worldmap
