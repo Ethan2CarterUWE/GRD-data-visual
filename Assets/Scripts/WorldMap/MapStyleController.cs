@@ -3,6 +3,17 @@ using TMPro;
 public class MapStyleController : MonoBehaviour
 {
     public InteractionModes interactionMode;
+    public Color top10COUNTRY;
+    public Color top25COUNTRY;
+    public Color top50COUNTRY;
+    public Color top75COUNTRY;
+    public Color top100COUNTRY;
+    public Color top150COUNTRY;
+    public Color top200COUNTRY;
+
+
+    public bool tryout;
+
     public Color DefaultColorForCountries;
     public Color DefaultColorForHighlightedCountries;
     public Color DefaultColorForSelectedCountries;
@@ -12,17 +23,35 @@ public class MapStyleController : MonoBehaviour
     public Color32 StrokeColor;
     [Range(0,1f)]public float StrokeSize;
     public TMPro.FontStyles FontStyle;
-    
-   public void UpdateSettings()
+
+    public void UpdateSettings()
 {
     for(int x=0;x<transform.childCount ;x++)
         {
             Transform countryT = transform.GetChild(x).transform;
-            if(countryT.tag == "Not Selected")
-            countryT.GetComponent<SpriteRenderer>().color = DefaultColorForCountries;
+
+
+            if (tryout == true)
+            {
+                countryT.tag = "Not Selected";
+            }
+          /*  else if (countryT.tag == "Not Selected")
+            {
+                countryT.GetComponent<SpriteRenderer>().color = DefaultColorForCountries; 
+
+            }*/
+
+          /*   if (countryT.tag == "Not Selected")
+             countryT.GetComponent<SpriteRenderer>().color = DefaultColorForCountries;*/
 
             else if(countryT.tag == "Selected")
-            countryT.GetComponent<SpriteRenderer>().color = DefaultColorForSelectedCountries;
+            {
+               
+                  // countryT.GetComponent<SpriteRenderer>().color = DefaultColorForSelectedCountries;
+                 // countryT.GetComponent<SpriteRenderer>().color = Color.magenta;
+
+                
+            }
 
             else if(countryT.tag == "Disabled")
             countryT.GetComponent<SpriteRenderer>().color = DefaultColorForNonIntractableCountries;
@@ -38,10 +67,16 @@ public class MapStyleController : MonoBehaviour
             text.outlineWidth = StrokeSize;
             text.outlineColor = StrokeColor;
             text.text = countryT.name;
+
+               
             }
         }
+
+
+    
+
         
-}
+    }
 }
 public enum InteractionModes
 {
