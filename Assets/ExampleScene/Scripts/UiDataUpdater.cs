@@ -5,7 +5,7 @@ using TMPro;
 using System;
 public class UiDataUpdater : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI HighlightText,selectText,rankText, pop00Text, pop10Text, pop15Text, pop20Text, pop21Text, pop22Text, pop23Text;
+    [SerializeField] TextMeshProUGUI HighlightText,selectText,rankText, pop00Text, pop10Text, pop15Text, pop20Text, pop21Text, pop22Text, pop23Text, growthRate2023;
     [SerializeField] WorldMap map;
     // Start is called before the first frame update
     void Start()
@@ -36,5 +36,7 @@ public class UiDataUpdater : MonoBehaviour
         pop21Text.text = map.DataPOP21.ToString("N0");
         pop22Text.text = map.DataPOP22.ToString("N0");
         pop23Text.text = map.DataPOP23.ToString("N0");
+        growthRate2023.text = map.DataGROWTH.ToString();
+
     }
 }
